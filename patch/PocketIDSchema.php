@@ -4,6 +4,10 @@ namespace App\Extensions\OAuth\Schemas;
 
 use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Wizard\Step;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\HtmlString;
 use SocialiteProviders\PocketID\Provider;
 
 final class PocketIDSchema extends OAuthSchema
@@ -20,11 +24,34 @@ final class PocketIDSchema extends OAuthSchema
 
     public function getServiceConfig(): array
     {
-        return [
+        return array_merge(parent::getServiceConfig(), [
             'base_url' => env('OAUTH_POCKETID_BASE_URL'),
-            'client_id' => env('OAUTH_POCKETID_CLIENT_ID'),
-            'client_secret' => env('OAUTH_POCKETID_CLIENT_SECRET'),
-        ];
+        ]);
+    }
+
+    public function getSetupSteps(): array
+    {
+        return array_merge([
+            Step::make('Configure Pocket ID Application')
+                ->schema([
+                    TextEntry::make('instructions')
+                        ->hiddenLabel()
+                        ->state(new HtmlString(Blade::render('
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li>Log in to your Pocket ID instance</li>
+                                <li>Navigate to your application or create a new OAuth application</li>
+                                <li>Copy the <strong>Client ID</strong> and <strong>Client Secret</strong> from your Pocket ID application</li>
+                                <li>Configure the redirect URL shown below in your Pocket ID application settings</li>
+                            </ol>
+                        '))),
+                    TextInput::make('_noenv_callback')
+                        ->label('Callback URL')
+                        ->dehydrated()
+                        ->disabled()
+                        ->hintCopy()
+                        ->default(fn () => url('/auth/oauth/callback/pocketid')),
+                ]),
+        ], parent::getSetupSteps());
     }
 
     public function getSettingsForm(): array
@@ -32,7 +59,7 @@ final class PocketIDSchema extends OAuthSchema
         return array_merge(parent::getSettingsForm(), [
             TextInput::make('OAUTH_POCKETID_BASE_URL')
                 ->label('Base URL')
-                ->placeholder('Base URL')
+                ->placeholder('https://id.example.com')
                 ->columnSpan(2)
                 ->required()
                 ->url()
@@ -54,6 +81,11 @@ final class PocketIDSchema extends OAuthSchema
     public function getName(): string
     {
         return env('OAUTH_POCKETID_DISPLAY_NAME', 'Pocket ID');
+    }
+
+    public function getIcon(): string
+    {
+        return 'heroicon-o-identification';
     }
 
     public function getHexColor(): string

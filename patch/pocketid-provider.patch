@@ -2,15 +2,15 @@ diff --git a/app/Providers/Extensions/OAuthServiceProvider.php b/app/Providers/E
 index 6d64ce496..c58cf3de1 100644
 --- a/app/Providers/Extensions/OAuthServiceProvider.php
 +++ b/app/Providers/Extensions/OAuthServiceProvider.php
-@@ -8,6 +8,7 @@ use App\Extensions\OAuth\Schemas\CommonSchema;
- use App\Extensions\OAuth\Schemas\DiscordSchema;
- use App\Extensions\OAuth\Schemas\GithubSchema;
+@@ -12,6 +12,7 @@ use App\Extensions\OAuth\Schemas\GithubSchema;
  use App\Extensions\OAuth\Schemas\GitlabSchema;
+ use App\Extensions\OAuth\Schemas\GoogleSchema;
+ use App\Extensions\OAuth\Schemas\LinkedinSchema;
 +use App\Extensions\OAuth\Schemas\PocketIDSchema;
+ use App\Extensions\OAuth\Schemas\SlackSchema;
  use App\Extensions\OAuth\Schemas\SteamSchema;
- use Illuminate\Support\ServiceProvider;
-
-@@ -30,6 +31,7 @@ class OAuthServiceProvider extends ServiceProvider
+ use App\Extensions\OAuth\Schemas\XSchema;
+@@ -36,6 +37,7 @@ class OAuthServiceProvider extends ServiceProvider
 
              // Additional OAuth providers from socialiteproviders.com
              $service->register(new AuthentikSchema());
