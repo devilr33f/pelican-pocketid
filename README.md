@@ -31,7 +31,7 @@ These environment variables control the Pocket ID integration (also you can conf
 
 In your Pocket ID application settings, set the OAuth redirect/callback URL to your Panel domain using the `pocketid` provider slug, for example:
 
-- `https://<your-panel-domain>/oauth/callback/pocketid`
+- `https://<your-panel-domain>/auth/oauth/callback/pocketid`
 
 After starting the container, the login page should show a Pocket ID button using your configured name and color.
 
