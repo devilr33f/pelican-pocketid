@@ -1,3 +1,12 @@
+> [!WARNING]
+> This repository has been archived due to the addition of a plugin system in Pelican.
+>
+> **Please use these plugins as an alternative:**
+>
+> [Generic OIDC Providers](https://github.com/pelican-dev/plugins/tree/main/generic-oidc-providers)
+>
+> [Pocket ID Provider](https://github.com/pelican-dev/plugins/pull/75)
+
 ## Pelican Panel + Pocket ID OAuth
 
 Add the Pocket ID OAuth provider to the Pelican Panel image. This repo builds a Docker image that vendors the `socialiteproviders/pocketid` package and registers a new `PocketIDSchema` with the Panel, enabling sign-in via your Pocket ID instance.
